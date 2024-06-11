@@ -1,0 +1,204 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{plain}                                                      %%
+%%%%%%%%%% EXACT 1in MARGINS %%%%%%%                                   %%
+\setlength{\textwidth}{6.5in}     %%                                   %%
+\setlength{\oddsidemargin}{0in}   %% (It is recommended that you       %%
+\setlength{\evensidemargin}{0in}  %%  not change these parameters,     %%
+\setlength{\textheight}{8.5in}    %%  at the risk of having your       %%
+\setlength{\topmargin}{0in}       %%  proposal dismissed on the basis  %%
+\setlength{\headheight}{0in}      %%  of incorrect formatting!!!)      %%
+\setlength{\headsep}{0in}         %%                                   %%
+\setlength{\footskip}{.5in}       %%                                   %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                                   %%
+\newcommand{\required}[1]{\section*{\hfil #1\hfil}}                    %%
+\renewcommand{\refname}{\hfil References Cited\hfil}                   %%
+\bibliographystyle{plain}   
+
+
+
+%\usepackage[margin = 1in]{geometry}        % See geometry.pdf to learn the layout options. There are lots.
+
+% for revisions and referencing lines:
+\usepackage{lineno} 
+\usepackage{xr}
+\newcommand{\Rev}[1]{\label{#1}\linelabel{#1}} % to label my changes
+\newcommand{\lr}[1]{page~\pageref{#1}, line~\lineref{#1}}
+\newcommand{\lrange}[2]{Page~\pageref{#1}, Lines~\lineref{#1}~-~\lineref{#2}} % for referencing changes that extend over multiple lines in manuscript
+
+% citations
+\usepackage{bibentry}
+\usepackage{authblk}
+
+
+
+% to do tables with multiple columns
+\usepackage{booktabs} 
+\usepackage{array}
+\usepackage{multirow}
+
+\usepackage{tabularx} % helps with equations with multiple columns
+
+%%% settings for American Naturalist:
+\usepackage[sc]{mathpazo} %Like Palatino with extensive math support
+\usepackage{fullpage}
+\usepackage[authoryear,sectionbib,sort]{natbib}
+\linespread{1.7}
+\usepackage[utf8]{inputenc}
+\usepackage{titlesec}
+\titleformat{\section}[block]{\Large\bfseries\filcenter}{\thesection}{1em}{}
+\titleformat{\subsection}[block]{\Large\itshape\filcenter}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}[block]{\large\itshape}{\thesubsubsection}{1em}{}
+\titleformat{\paragraph}[runin]{\itshape}{\theparagraph}{1em}{}[. ]\renewcommand{\refname}{Literature Cited}
+%\usepackage{lineno}
+\usepackage[normalem]{ulem}
+\renewcommand{\refname}{\hfil References Cited\hfil}                   %%
+\bibliographystyle{plain}   
+%%%%%%%%%
+
+
+
+
+\usepackage{xcolor}					% for doing text colors
+%\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex
+\usepackage{amsthm}				% allows proofs and theorems
+
+\usepackage{physics}
+
+\usepackage{setspace}				% for doublespacing
+\usepackage{booktabs}				% so i can use tables printed  in python with pandas.DataFrame.to_latex()
+\usepackage{lipsum}					% seems important in adding spacing controls to tables
+\AtBeginEnvironment{tabular}{\doublespacing}
+
+\usepackage{amssymb, amsmath}		% Writing derivatives easier, can do the eval line. 
+
+%for mixing right and left alignment in align environment
+\usepackage{mathtools}
+
+%mathtools and arydshln should help with matrices
+\usepackage{arydshln}
+
+
+\usepackage{tikz, pgfplots} 					% For diagrams
+\usetikzlibrary{shapes, arrows.meta, % arrows.meta lets me do other arrow head types like square, 			
+			quotes, trees,		%see https://gist.github.com/AndiH/f99d9b0cbd3519c27af5b96cfbeff97c
+			calc} 	
+	
+% \pgfplotsset{mystyle/.append style={axis x line = bottom, axis y line = left, xlabel = {$x_i$}, ylabel = {$\sigma_i(x_i)$}}}
+
+\usepackage[labelfont=bf]{caption}
+\usepackage{subcaption, multicol} % for captions and subcaptions in subfigures	
+\captionsetup[subfigure]{justification=justified,singlelinecheck=false} % left align subfigure labels
+\renewcommand{\thesubfigure}{\Alph{subfigure}} % so have capitalized letters
+
+%\usepackage{ragged2e} 				% used to have unjustified text, as required by ESA journals
+%\setlength{\RaggedRightParindent}{\parindent} % because I like indents
+% \usepackage{natbib}					% I think this is necessary for ESA bibliography format
+\usepackage[shortlabels]{enumitem} % so I can have an enumerated list going H1, H2, ...
+\usepackage{xr} % for referencing between documents
+% line numbers
+
+\usepackage{breqn} %for dmath
+\usepackage{longtable} % for tables that take multiple pages
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% so line numbers cooperate with equations
+\usepackage{etoolbox} %% <- for \cspreto, \csappto % this also helps put double spacing in tables
+
+%% Patch 'normal' math environments:
+\newcommand*\linenomathpatch[1]{%
+  \cspreto{#1}{\linenomath}%
+  \cspreto{#1*}{\linenomath}%
+  \csappto{end#1}{\endlinenomath}%
+  \csappto{end#1*}{\endlinenomath}%
+}
+
+\linenomathpatch{equation}
+\linenomathpatch{subequations}
+\linenomathpatch{split}
+\linenomathpatch{gather}
+\linenomathpatch{multline}
+\linenomathpatch{align}
+%%%%%%%%%%%%%%%%%%%
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Result}[]
+%\setcounter{lemma}{0}
+\newcommand{\loadeq}[1]{%
+    \ExecuteMetaData[equations.tex]{#1}%
+}
+\renewcommand{\eqref}[1]{[\ref{#1}]} % for brackets around equation numbers
+
+
+%SetFonts
+
+%SetFonts
+
+% Commands:
+% tikz styles 
+\tikzstyle{skewbox} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=red!30!blue!25]
+\tikzstyle{CHbox} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=cyan!30]
+\tikzstyle{preybox} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=cyan!50!yellow!50]
+\tikzstyle{arrow2way} = [line width=1mm,<->,>=stealth, shorten >=1pt,shorten <=1pt, fill = black!40]
+\tikzstyle{arrow1way} = [line width=1mm,->,>=stealth, shorten >=1pt,shorten <=1pt, fill = black!40]
+
+% color fonts
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\green}[1]{\textcolor{green}{#1}}
+
+
+
+% math shortcuts
+\newcommand{\td}{\tilde{\delta}}
+\newcommand{\D}{\Delta}
+\newcommand{\bigo}{\mathcal{O}}
+\newcommand{\lrp}[1]{\left( #1 \right)}
+\newcommand{\lrb}[1]{\left[ #1 \right]}
+\newcommand{\lrc}[1]{\left\{ #1 \right\}}
+\newcommand{\underbracetwo}[3]{\underbrace{#1}_{\substack{\text{#2} \\ \text{#3} } } }
+\newcommand{\twone}{\tilde{W}(1)}
+\newcommand{\RR}{(1-r)(1-\gamma)}
+%
+%\newcommand{\dk}{\delta_K}
+%\newcommand{\dpc}{\delta_{\pi_C}}
+%\newcommand{\dpw}{\delta_{\pi_W}}
+%\newcommand{\ds}{\delta_{s}}
+%\newcommand{\dps}[1]{\Delta_{\psi_{#1}}}
+%\newcommand{\dR}[1]{\Delta_{R_{#1}}}
+%\newcommand{\Dp}[1]{\Delta_{p_{#1}}}
+%\newcommand{\du}[1]{\Delta_{u_{#1}}}
+%\newcommand{\dx}[1]{\Delta_{x_{#1}}}
+%\newcommand{\dy}[1]{\Delta_{y_{#1}}}
+
+%\newcommand{\bU}{\bar{U}}
+%\newcommand{\bX}{\bar{X}}
+%\newcommand{\bY}{\bar{Y}}
+%\newcommand{\Lbu}{L_{\bar{u}}}
+%\newcommand{\Lbx}{L_{\bar{x}}}
+%\newcommand{\Lby}{L_{\bar{y}}}
+
+\newcommand{\cd}{\cdot}
+\newcommand{\rcd}{\tikz\draw[red,fill=red] (0,0) circle (.5ex);}
+\newcommand{\bcd}{\tikz\draw[blue,fill=blue] (0,0) circle (.5ex);}
+\newcommand{\grcd}{\tikz\draw[green,fill=green] (0,0) circle (.5ex);}
+\newcommand{\pdvhor}[2]{\partial #1/ \partial #2}
+
+% variable shortcuts
+\newcommand{\xm}{x_{m}}
+\newcommand{\fxm}{f \lrp{\xm}}
+\newcommand{\qd}{q_{\delta}}
+
+
+
+
+
+
+
+
+
+
+
