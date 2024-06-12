@@ -1,0 +1,150 @@
+%%%%%%%%% PROPOSAL -- 15 pages (including Prior NSF Support)
+
+\section{Project Description}
+\subsection{Introduction}
+
+Studying the ecological context of cooperative behaviors may elucidate why extreme examples of cooperation evolved. Two particularly interesting types of cooperative behavior are cooperative hunting and reproductive skew
+
+Studying social behavior in ecology is hard because there is very scant modeling of sociality in predator-prey dynamics, particularly with sociality of predators, and limited options for modeling the evolution of any behavior in a populaiton that is structured into groups. 
+
+The P.I. proposes to conduct three projects:
+\begin{enumerate}
+\item The interaction of group formation dynamics and population dynamics
+\item The evolution of reproductive skew with a population structured into groups that can hunt cooperatively or solitarily.
+\item meta-analysis of cooperative hunting behavior, group dynamics, and reproductive cooperation across carnivora
+\end{enumerate}
+
+\subsection{Project 1: Predator Group Formation and Prey Dynamics}
+% From the NSF Grants Proposal Guide:
+% "The Project Description should provide a clear statement of the work 
+% to be undertaken and must include: objectives for the period of the proposed 
+% work and expected significance; relation to longer-term goals of the PI's 
+% project; and relation to the present state of knowledge in the field, 
+% to work in progress by the PI under other support and to work in progress 
+% elsewhere."
+The predator population, with population size $p$, hunts two types of prey: big prey, with population size $M_1$, and small prey, with population size $M_2$. Big prey and small prey are also referred to as prey types 1 and 2, respectively. Predators are split into hunting groups that are of size $x \in 1, 2, \cdots, p$. Let $f(x,t)$ be the number of groups of size $x$, which for brefity is also written as $f(x)$. The population dynamics of predators and prey are 
+\begin{subequations} \label{general_model}
+\begin{align}
+\frac{dp}{dt} &=  \sum_{x=1}^{\xm} f(x) \lrb{b_1 Y_1(x,M_1,M_2) + b_2 Y_2(x,M_1,M_2)} - p \delta \\
+\frac{dM_1}{dt} &= g_1 M_1 \lrp{1 - \frac{M_1}{k_1}}  -  \sum_{x=1}^{\xm} f(x) Y_1(x,M_1,M_2) \\
+\frac{dM_2}{dt} &= g_1 M_1 \lrp{1 - \frac{M_1}{k_1}}  -  \sum_{x=1}^{\xm} f(x) Y_2(x,M_1,M_2)
+\end{align}
+\end{subequations}
+where the parameters are defined in Table \ref{originalparameters} and $Y_i(x,M_1,M_2)$ is the functional response on prey $i$. The functional responses are defined as the rate of prey caught per hunting \textit{entity}, i.e. a solitary predator or predator group, so the fitness from hunting in a group is shared across the group WHICH IS NOT PRESENT IN OTHER PRED-PREY MODELS WITH COOPERATIVE HUNTING. The functional response of a hunting group of size $x$ is a type II functional response (CITE HAMILTON?), namely
+\begin{equation} \label{fun_response}
+Y_i(M_1, M_2, x) = \frac{a_i \alpha_i(x) M_i}{1 + \sum_{j=1,2} a_j \alpha_j(x) h_j M_j}, \qquad \alpha_i(x) = \frac{1}{1 + e^{-\theta_i(x - s_i)}}
+\end{equation}	
+for $i = 1,2$. The parameters are defined in Table \ref{originalparameters}. Importantly, the predator group size influences the capture probability $\alpha_i(x)$, which is the probability a predator captures prey $i$ upon encounter (Fig. \ref{capture_rates_small}). However, the combination of parameter $\theta_i, s_i$ are not very intuitive for understanding how the capture probability responds to group size, especially since increasing $\theta_i, s_i$ also changes the capture probability of solitary predators. For $\alpha_{i}(1)$ the capture probability of prey $i$ by solitary predators, $\theta_i = - \frac{\ln\lrp{ \frac{1}{\alpha_i(1)} -1 }}{1 - s_i}$ is substituted into eq. \ref{fun_response}.
+
+Predator life cycles proceed as follows: Predators are born, go through a juvenile stage in which they do not hunt (and are instead fed by the hunting parent), and then disperse, becoming solitary until they join a group (if they join a group). Juveniles do not count toward group size because they do not hunt, and the food they receive is provided by the share of food given to the parent producing them. Predators may leave and join groups multiple times within their lifespan. The time constant for group dynamics is $\tau_x$. While time for the population dynamics processes in system eqs. \ref{general_model} is on the order of years or seasons, time for group dynamics may be on the order of days, so $\tau_x << 1$. Thus the group size distribution changes from the following processes: (1) solitary individuals join group of size $x$ at rate $\psi(x)$, (2) individuals leave groups of size $x$ at rate $\phi(x)$, (3) Individuals die at rate $\delta \tau_x$, the death rate relative to the time scale of group dynamics, and (4) individuals are born and disperse, becoming solitary, at a rate that is the overall birth rate of predators, adjusted for the group formation time scale, i.e. $\tau_x \sum_{x=1}^{\xm} f(x) x\bar{w}$ , where $\bar{w}$ is defined in eq. \ref{w_bar}. The master equations for the number of solitary individuals is, the number of groups of size 2, and number of groups of size $x \geq 2$ are, respectively,
+\begin{multline} \label{df_of_1}
+\tau_x \pdv{f(1)}{t} = \underbracetwo{\tau_x \sum_{x=1}^{\xm} f(x) x\bar{w}(x)}{births}{}\ + \underbracetwo{2 \cdot f(2) \phi(2)}{groups of 2}{split to two solitaries} \ +  \underbracetwo{\sum_{x=3}^{\xm} f(x) \phi(x)}{individuals leave}{larger groups}\  + \  \underbracetwo{2 f(2) \delta \tau_x }{larger groups shrink}{due to deaths} \\
+-\  \underbracetwo{f(1) \delta \tau_x}{deaths of}{solitaries} -\  \underbracetwo{ f(1) \sum_{x=2}^{\xm} \psi(x-1)}{solitaries join}{groups},
+\end{multline}
+\begin{equation} \label{df_dt_2}
+\tau_x \pdv{f(2)}{t} = \ -\  \underbracetwo{f(2) \phi(2)}{an individual}{leaves} 
+\ - \ \underbracetwo{f(2) \psi(2) }{growing to}{larger group} \ +\  \frac{1}{2} \underbracetwo{f(1) \psi(1)}{solitaries}{forming dyads}\ +\ \underbracetwo{f(3)\phi(3)}{a member leaves }{a larger group} - 2 f(2) \delta \tau_x + 3 f(3) \delta \tau_x
+\end{equation}
+\begin{equation} \label{df_dt}
+\tau_x \pdv{f(x)}{t} = -\underbracetwo{  f(x) \phi(x) }{an individual}{leaves} \ - \ \underbracetwo{f(x) \psi(x) }{growing to}{larger group} \ +\ \underbracetwo{f(x-1)\psi(x-1)}{smaller group}{grows to size $x$} + \underbracetwo{f(x+1)\phi(x+1)}{a member leaves}{a larger group} - x f(x) \delta \tau_x,
+\end{equation}
+where $\bar{w}(x)$ is the per-capita fitness in a group of size $x$ if food is shared evenly, namely
+\begin{equation}\label{w_bar}
+\bar{w}(x) = \frac{1}{x} \lrp{b_1Y_1(x,M_1,M_2) + b_2Y_2(x,M_1,M_2)}.
+\end{equation}
+
+Let $S(x,y)$ be the best response function modeling the probability a decision-maker will transition from a group of size $y$ to a group of size $x$, for $x,y \geq 1$, $y \leq \xm$, and $x \leq \xm - 1$. If predators can freely leave and join groups, then that decision-maker is the predator that is deciding whether to leave or join a group. If groups decide whether to admit or eject members, the decision-maker could be either any subordinate individual in a group or the dominant individual. This function is sigmoidal in shape, growing closer to $1$ as $W(x) - W(y)$ increases. We model this choice using Tullock's contest success function \cite{tullock_efficient_1980}, i.e.,
+\begin{equation} \label{best_response_function}
+S(x,y) = \frac{W(x)^d}{W(x)^d + W(y)^d}
+\end{equation}
+for $d$ a positive scaling constant that determines the shape of $S(x,y)$. If individuals can freely join or leave groups, the rate at which individuals join a group of size $x$ is
+\begin{equation}
+\psi(x) = 
+\begin{cases}
+\lrb{f(1) - 1} S(2,1) & \text{if } x = 1 \text{ and } \red{f(x) \geq 1}\\
+f(1) S(x+1,1)  & \text{if } 1 < x \leq \xm - 1 \\
+0 & \text{otherwise},
+\end{cases}
+\end{equation}
+\red{If $F(1)<1,$ what should I do???? Should it just be $F(1)^2$?}
+and the rate at which they leave a group of size $x$ will be $\phi(x) = xS(1,x)$ for $x \leq \xm$.  
+
+\subsubsection{Plan for Analysis and Preliminary results}
+The P.I.'s intend to compare the model described in eqs. \ref{general_model}a - c and eqs. \ref{df_of_1} - \ref{df_dt} to a model in which all predators are in groups of size $x^*$, described by eqs. \ref{general_model}a - c with $f(x) = p/x$ for $x = x^*$ and 0 otherwise. Initial results indicate that whereas froup group sizes to stay at a constant $x^*$ can lead to one prey type going extinct, allowing fission-fusion dynamics of group sizes results in both prey types and predators coexisting. The P.I.'s will test whether increased availability selects for more cooperation by examining whether increasing growth rates of big prey increases average group size of predators. Furthermore, they will examine the range of parameters for which extinction of either prey type is locally stable using linear stability analysis. Finally, the authors will examine the presence or absence of apparent competition, as defined in \cite{holt_predation_1977}, between prey types, and how apparent competition depends on group dynamics.
+
+\begin{table}[htp!]
+\caption{List of parameters used in the model}
+\begin{center}
+\begin{tabular}{|c|p{5in}|}
+\hline
+\textbf{Parameter} & \textbf{Definition}  \\
+\hline
+$b_1$ & Conversion of big prey caught to predator population growth; $0 < b_1 < 1$ \\
+\hline
+$b_2$ & Conversion of small prey caught to predator population growth; $0 < b_2 < B$ \\
+\hline
+$\delta$ & Death rate of predators, i.e. the probability a predator dies per unit ecological time; $0 < \delta < 1$.\\
+\hline
+$\tau_x$ & The time constant for the dynamics of group size \\
+\hline
+$\theta_1$ & Facilitation by cooperation of predators hunting big prey; $\theta_1 \geq 0$ \\
+\hline
+$\theta_2$ & Facilitation by cooperation of predators hunting small prey; $\theta_2 \leq 0$ \\
+\hline
+$h_1$ & Handling time of big prey \\
+\hline
+$h_2$ & Handling time of small prey \\
+\hline
+$a_1$ & Attack rate on big prey by solitary predator \\
+\hline
+$a_2$ & Attack rate on small prey by solitary predator \\
+\hline
+$\gamma$ & Portion of even share of food donated by subordinates \\
+\hline
+%$r$ & Average relatedness between the dominant and subordinates \\
+%\hline
+\end{tabular}
+\end{center}
+\label{originalparameters}
+\end{table}%
+
+\subsection{Project 2: The Evolution of Reproductive Skew across Dynamic Groups}
+
+DO I NEED THE SMALL PREY VS BIG PREY HERE, OR IS IT ENOUGH TO JUST SAY THEY GET A BIG YIELD IN A GROUP BUT IT HAS TO BE SHARED, THEY GET A SMALL YIELD ALONE BUT IT'S ALL THEIRS.
+
+Predators can hunt large prey, which has benefit $b_1$ before sharing, or hunt small prey which has benefit $b_2$ before sharing. There are no population dynamics of big prey and small prey. Then the rate at which predator groups catch prey is similar to eq. \ref{fun_response} but the P.I.'s set $M_1, M_2 = 1$, so here
+\begin{equation} \label{fun_response_2}
+Y_i(x) = \frac{a_i \alpha_i(x)}{1 + h_1 a_1 \alpha_1(x) + h_2 a_2 \alpha_2(x)} \qquad \text{for }
+\alpha_i(x) = \frac{1}{1 + e^{-\theta_i(x - s_i)}}.
+\end{equation}
+There are overlapping generations, so births increase relatedness, and the P.I.'s track relatedness for each group size? This might be similar to \cite{johnstone_kin_2008}. WE NEED TO DISCUSS HOW TO DO THIS?
+
+If this model does not track population dynamics then how do new individuals fit into the system? Are births balanced by deaths? So if $\sum_x f(x) \bar{w}(x)$ is the overall birth rate of the population, then the per-capita death rate is $\delta = \frac{1}{p} \sum_x f(x) \bar{w}(x)$ for $p = \sum_x x f(x)$ the constant population size.
+
+Reproductive skew results in division of labor between a minority that devotes its time to reproducing, and a majority that devotes its time to hunting. Say predators spend a portion of their time $t_h$ foraging, leaving a portion $1 - t_h$ of their time to reproduce. If there is reproductive skew, dominants spend all of their time reproducing, and skew increases as the portion of time spent hunting of subordinates $t_h$ increases. The expected hunting group size for groups of size $x > 1$ is $\bar{x}_e(x) = t_h (x - 1)$. Furthermore, reproduction of each individual is proportional to the yield after sharing and the time available to reproduce. So the reproduction of a subordinate is $w_s(x) = \frac{1}{x} (1 - t_h) \sum_{i=1,2} Y_i(\bar{x}_e(x))$ and that of a dominant is $w_d \frac{1}{x} \sum_{i=1,2} Y_i(\bar{x}_e(x))$. SO ISSUE HERE IS FOOD STILL SHARED EVENLY. COULD POSSIBLY SAY THE FOOD SUBORDINATES AREN'T SPENDING ON REPRODUCTION IS GOING TO THE DOMINANT?
+
+
+\subsection{Project 3: The Presence of Cooperative Hunting, Cooperative Breeding, and Group Formation across Carnivora}
+
+\section{Broader Impacts}
+% as in the project summary, broader impacts must be called out separately 
+% in the project description.  You may be able to give more specific
+% examples, or discuss how you've previously achieved these impacts.
+% It should be similar, but not identical, to the Broader Impacts statement
+% in the project summary
+
+\section{Results From Prior NSF Support}
+% 5 pages or fewer of the 15 pages for entire description document.
+% include results from NSF grants received in the past 5 years.
+% if supported by more than one grant, choose the most relevant one
+% for each grant, include: NSF award number, amount, dates of
+% support, and publications resulting from this research.
+% due to space limitations, it is often advisable to use citations rather
+% than putting the titles of the publications in the body 
+% of this section
+
+% e.g.: "My prior grant, "Uses of Coffee in Mathematical Research" (DMS-0123456, 
+% $100,000, 2005-2008), resulted in 3 papers [1],[2],[3], demonstrating..."
+
+% if requesting postdoctoral research salary, a supplemental 1-page document
+% called "Postdoc Mentoring Plan" will be required

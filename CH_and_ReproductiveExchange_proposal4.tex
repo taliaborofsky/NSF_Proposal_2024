@@ -1,12 +1,28 @@
-\documentclass[11pt, letterpaper] {article}
+\documentclass{NSF}
+%\documentclass[11pt, letterpaper] {article}
 \usepackage{NSF_reproductive_exchange}
 %\externaldocument{CHRE_Appendix3}
 \begin{document}
+% A. Cover Sheet
+% A number of the boxes contained on the Cover Sheet are
+% electronically pre-filled as part of the FastLane login process
+% Complete the rest of your info there
+
+% B. Project Summary
+\title{Niche construction by cooperative hunting and reproductive skew}
+\newsection{B}
+\input{sections/NSFsumm}
+
+%C. Table of Contents
+% A Table of Contents is automatically generated for the proposal by FastLane
+% D. Project Description
 \linenumbers % may want to remove this before submitting
+\newpage \newsection{D}
+\input{sections/NSFdesc}
+\include{sections/NSFfigs}
 
-
-\include{NSFsumm}
-
-
+% E. References Cited
+\newpage\newsection{E}
+\renewcommand\refname{References Cited}
 \bibliography{reproductive_exchange}
 \end{document}
