@@ -91,6 +91,8 @@
 % \pgfplotsset{mystyle/.append style={axis x line = bottom, axis y line = left, xlabel = {$x_i$}, ylabel = {$\sigma_i(x_i)$}}}
 
 \usepackage[labelfont=bf]{caption}
+\usepackage{wrapfig} % for wrapping text around figure. see https://www.overleaf.com/learn/latex/Wrapping_text_around_figures for instructions
+\usepackage[skip=1pt]{caption} % for reducing skip between figure and caption, see answer https://tex.stackexchange.com/questions/94016/how-to-reduce-space-between-image-and-its-caption
 \usepackage{subcaption, multicol} % for captions and subcaptions in subfigures	
 \captionsetup[subfigure]{justification=justified,singlelinecheck=false} % left align subfigure labels
 \renewcommand{\thesubfigure}{\Alph{subfigure}} % so have capitalized letters
